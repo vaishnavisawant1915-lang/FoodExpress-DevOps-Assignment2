@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu | FoodExpress</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f7f8fa;
+    color: #222;
+}
+
+/* NAVBAR */
+
+.navbar {
+    height: 72px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: #e23744;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #e23744;
+}
+
+.cart-btn {
+    background: #e23744;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 22px;
+}
+
+/* PROFILE */
+
+.profile-area {
+    position: relative;
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e23744;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 52px;
+    width: 250px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    padding: 18px;
+    z-index: 2000;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+.profile-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+}
+
+.profile-name {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.profile-email {
+    color: #777;
+    font-size: 13px;
+    margin-top: 4px;
+    word-break: break-word;
+}
+
+.profile-dropdown a,
+.logout-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 8px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-dropdown a:hover,
+.logout-btn:hover {
+    background: #f7f7f7;
+}
+
+.logout-btn {
+    color: #e23744;
+    font-weight: 600;
+}
+
+/* HEADER */
+
+.restaurant-header {
+    background: linear-gradient(135deg, #fff2f3, white);
+    padding: 50px 6%;
+}
+
+.restaurant-header h1 {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+.restaurant-header p {
+    color: #666;
+}
+
+/* CATEGORY */
+
+.categories {
+    background: white;
+    padding: 20px 6%;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+}
+
+.category-btn {
+    border: 1px solid #ddd;
+    background: white;
+    padding: 10px 18px;
+    border-radius: 22px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.category-btn.active,
+.category-btn:hover {
+    background: #e23744;
+    color: white;
+    border-color: #e23744;
+}
+
+/* MENU */
+
+.menu-section {
+    padding: 35px 6% 70px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.menu-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.food-icon {
+    height: 130px;
+    background: #fff2f3;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.menu-card h3 {
+    margin-bottom: 8px;
+}
+
+.menu-card p {
+    color: #777;
+    min-height: 40px;
+}
+
+.food-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+}
+
+.price {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.add-btn {
+    border: none;
+    background: #e23744;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.add-btn:hover {
+    background: #c91f2c;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 22px;
+    color: #e23744;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+footer {
+    background: #181818;
+    color: white;
+    text-align: center;
+    padding: 28px;
+}
+
+@media (max-width: 850px) {
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a:not(.cart-btn) {
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="index.html" class="logo">FoodExpress</a>
+
+    <div class="nav-links">
+
+        <a href="index.html">Home</a>
+        <a href="restaurants.html">Restaurants</a>
+        <a href="orders.html">Orders</a>
+
+        <a href="cart.html" class="cart-btn">
+            Cart 🛒 <span id="cartCount">0</span>
+        </a>
+
+        <div class="profile-area">
+
+            <div
+                class="profile-avatar"
+                id="profileAvatar"
+                onclick="toggleProfileMenu()"
+            >
+                👤
+            </div>
+
+            <div class="profile-dropdown" id="profileDropdown">
+
+                <div class="profile-header">
+
+                    <div class="profile-name" id="profileName">
+                        Guest User
+                    </div>
+
+                    <div class="profile-email" id="profileEmail">
+                        Login / Register
+                    </div>
+
+                </div>
+
+                <a href="profile.html">👤 My Profile</a>
+                <a href="orders.html">📦 My Orders</a>
+
+                <button class="logout-btn" onclick="logoutUser()">
+                    🚪 Logout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<section class="restaurant-header">
+
+    <h1 id="restaurantName">Restaurant Menu</h1>
+
+    <p id="restaurantDescription">
+        Choose your favourite food.
+    </p>
+
+    <a href="restaurants.html" class="back-link">
+        ← Back to Restaurants
+    </a>
+
+</section>
+
+
+<div class="categories" id="categories"></div>
+
+
+<section class="menu-section">
+
+    <div class="menu-grid" id="menuGrid"></div>
+
+</section>
+
+
+<footer>
+    <p>© 2026 FoodExpress. Delicious food, delivered fast.</p>
+</footer>
+
+
+<script>
+
+const restaurants = {
+
+    "burger-king": {
+        name: "Burger King",
+        description: "Burgers, fries and delicious fast food.",
+        menu: [
+            ["Whopper Burger", 199, "🍔"],
+            ["Crispy Chicken Burger", 179, "🍔"],
+            ["French Fries", 99, "🍟"],
+            ["Chicken Wings", 149, "🍗"],
+            ["Chocolate Shake", 129, "🥤"]
+        ]
+    },
+
+    "mcdonalds": {
+        name: "McDonald's",
+        description: "Popular burgers, fries and beverages.",
+        menu: [
+            ["McChicken Burger", 189, "🍔"],
+            ["McVeggie Burger", 149, "🍔"],
+            ["French Fries", 99, "🍟"],
+            ["McNuggets", 159, "🍗"],
+            ["Chocolate Shake", 129, "🥤"]
+        ]
+    },
+
+    "kfc": {
+        name: "KFC",
+        description: "Crispy chicken, burgers, buckets and meals.",
+        menu: [
+            ["Classic Zinger Burger", 199, "🍔"],
+            ["Chicken Burger", 179, "🍔"],
+            ["₹100 Burger Meal", 100, "🍔"],
+            ["Zinger Box Meal", 349, "🍱"],
+            ["Bucket for Two", 499, "🍗"],
+            ["Chicken Bucket", 399, "🍗"],
+            ["Hot & Crispy Chicken", 229, "🍗"],
+            ["Chicken Wings", 169, "🍗"],
+            ["Regular Fries", 99, "🍟"],
+            ["Coke", 69, "🥤"]
+        ]
+    },
+
+    "belgian-waffle": {
+        name: "The Belgian Waffle Co.",
+        description: "Delicious waffles and sweet desserts.",
+        menu: [
+            ["Chocolate Waffle", 149, "🧇"],
+            ["Nutella Waffle", 179, "🧇"],
+            ["Belgian Chocolate Waffle", 199, "🧇"],
+            ["Red Velvet Waffle", 189, "🧇"],
+            ["Cold Coffee", 129, "🥤"]
+        ]
+    },
+
+    "dominos": {
+        name: "Domino's Pizza",
+        description: "Pizza, sides and refreshing beverages.",
+        menu: [
+            ["Margherita Pizza", 199, "🍕"],
+            ["Farmhouse Pizza", 299, "🍕"],
+            ["Peppy Paneer Pizza", 279, "🍕"],
+            ["Chicken Dominator", 349, "🍕"],
+            ["Garlic Bread", 129, "🥖"]
+        ]
+    },
+
+    "subway": {
+        name: "Subway",
+        description: "Fresh sandwiches, salads and sides.",
+        menu: [
+            ["Veggie Delite Sub", 149, "🥪"],
+            ["Paneer Tikka Sub", 199, "🥪"],
+            ["Chicken Teriyaki Sub", 229, "🥪"],
+            ["Italian B.M.T. Sub", 249, "🥪"],
+            ["Cookies", 69, "🍪"]
+        ]
+    },
+
+    "wow-momo": {
+        name: "Wow! Momo",
+        description: "Momos, burgers and delicious Asian snacks.",
+        menu: [
+            ["Veg Steamed Momos", 129, "🥟"],
+            ["Chicken Steamed Momos", 159, "🥟"],
+            ["Paneer Fried Momos", 169, "🥟"],
+            ["Chicken Fried Momos", 189, "🥟"],
+            ["Momo Burger", 199, "🍔"]
+        ]
+    },
+
+    "haldirams": {
+        name: "Haldiram's",
+        description: "Indian snacks, meals and sweets.",
+        menu: [
+            ["Chole Bhature", 179, "🍛"],
+            ["Raj Kachori", 139, "🥗"],
+            ["Paneer Tikka", 229, "🍢"],
+            ["Samosa", 49, "🥟"],
+            ["Gulab Jamun", 89, "🍮"]
+        ]
+    },
+
+    "mainland-china": {
+        name: "Mainland China",
+        description: "Chinese and Asian cuisine.",
+        menu: [
+            ["Veg Hakka Noodles", 229, "🍜"],
+            ["Chicken Hakka Noodles", 279, "🍜"],
+            ["Veg Manchurian", 249, "🥡"],
+            ["Chicken Manchurian", 299, "🥡"],
+            ["Spring Rolls", 179, "🥠"]
+        ]
+    },
+
+    "biryani-blues": {
+        name: "Biryani Blues",
+        description: "Flavourful biryani and Indian cuisine.",
+        menu: [
+            ["Chicken Biryani", 249, "🍚"],
+            ["Mutton Biryani", 329, "🍚"],
+            ["Veg Biryani", 199, "🍚"],
+            ["Chicken Kebab", 229, "🍗"],
+            ["Raita", 59, "🥣"]
+        ]
+    }
+
+};
+
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const restaurantId =
+    params.get("restaurant") || "kfc";
+
+const restaurant =
+    restaurants[restaurantId] || restaurants["kfc"];
+
+
+document.getElementById("restaurantName").textContent =
+    restaurant.name;
+
+document.getElementById("restaurantDescription").textContent =
+    restaurant.description;
+
+
+const menuGrid =
+    document.getElementById("menuGrid");
+
+
+function displayMenu() {
+
+    menuGrid.innerHTML = "";
+
+    restaurant.menu.forEach((item, index) => {
+
+        const card = document.createElement("div");
+
+        card.className = "menu-card";
+
+        card.innerHTML = `
+
+            <div class="food-icon">
+                ${item[2]}
+            </div>
+
+            <h3>${item[0]}</h3>
+
+            <p>
+                Delicious ${item[0].toLowerCase()}
+                prepared fresh for you.
+            </p>
+
+            <div class="food-bottom">
+
+                <span class="price">
+                    ₹${item[1]}
+                </span>
+
+                <button
+                    class="add-btn"
+                    onclick="addToCart(${index})"
+                >
+                    Add +
+                </button>
+
+            </div>
+        `;
+
+        menuGrid.appendChild(card);
+
+    });
+
+}
+
+
+function addToCart(index) {
+
+    let cart =
+        JSON.parse(localStorage.getItem("foodExpressCart")) || [];
+
+    const item = restaurant.menu[index];
+
+    const existing =
+        cart.find(
+            product =>
+                product.name === item[0] &&
+                product.restaurantId === restaurantId
+        );
+
+    if (existing) {
+
+        existing.quantity =
+            (existing.quantity || 1) + 1;
+
+    } else {
+
+        cart.push({
+
+            name: item[0],
+
+            price: item[1],
+
+            icon: item[2],
+
+            restaurantId: restaurantId,
+
+            restaurantName: restaurant.name,
+
+            quantity: 1
+
+        });
+
+    }
+
+    localStorage.setItem(
+        "foodExpressCart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert(item[0] + " added to cart!");
+}
+
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(localStorage.getItem("foodExpressCart")) || [];
+
+    let count = 0;
+
+    cart.forEach(item => {
+        count += item.quantity || 1;
+    });
+
+    document.getElementById("cartCount").textContent =
+        count;
+}
+
+
+/* PROFILE */
+
+function getInitials(name) {
+
+    if (!name) return "👤";
+
+    const words =
+        name.trim().split(/\s+/);
+
+    if (words.length === 1) {
+        return words[0].substring(0, 2).toUpperCase();
+    }
+
+    return (
+        words[0][0] +
+        words[words.length - 1][0]
+    ).toUpperCase();
+}
+
+
+function loadProfileNavbar() {
+
+    const userData =
+        localStorage.getItem("foodExpressUser");
+
+    const avatar =
+        document.getElementById("profileAvatar");
+
+    const name =
+        document.getElementById("profileName");
+
+    const email =
+        document.getElementById("profileEmail");
+
+    if (userData) {
+
+        const user =
+            JSON.parse(userData);
+
+        avatar.textContent =
+            getInitials(user.name);
+
+        name.textContent =
+            user.name || "User";
+
+        email.textContent =
+            user.email || "";
+
+    } else {
+
+        avatar.textContent = "👤";
+        name.textContent = "Guest User";
+        email.textContent = "Login / Register";
+
+    }
+
+}
+
+
+function toggleProfileMenu() {
+
+    document
+        .getElementById("profileDropdown")
+        .classList.toggle("show");
+
+}
+
+
+document.addEventListener("click", function(event) {
+
+    const area =
+        document.querySelector(".profile-area");
+
+    if (!area.contains(event.target)) {
+
+        document
+            .getElementById("profileDropdown")
+            .classList.remove("show");
+
+    }
+
+});
+
+
+function logoutUser() {
+
+    localStorage.removeItem("foodExpressUser");
+
+    alert("You have been logged out.");
+
+    window.location.href = "index.html";
+}
+
+
+displayMenu();
+updateCartCount();
+loadProfileNavbar();
+
+</script>
+
+</body>
+</html>

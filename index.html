@@ -1,0 +1,1891 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodExpress - Food Delivered Fast</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #222;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        nav {
+            height: 72px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: #ff5a1f;
+            text-decoration: none;
+        }
+
+
+        .logo span {
+            color: #222;
+        }
+
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+
+        .nav-links > a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+
+        .nav-links > a:hover {
+            color: #ff5a1f;
+        }
+
+
+        /* =====================================================
+           CART
+        ===================================================== */
+
+        .cart-btn {
+            background: #222;
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 22px;
+            text-decoration: none;
+        }
+
+
+        .cart-btn:hover {
+            background: #ff5a1f;
+        }
+
+
+        /* =====================================================
+           PROFILE MENU
+        ===================================================== */
+
+        .profile-menu {
+            position: relative;
+        }
+
+
+        .profile-avatar {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            border: none;
+            background: #ff5a1f;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.3s;
+        }
+
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            background: #e84d16;
+        }
+
+
+        .profile-dropdown {
+            display: none;
+
+            position: absolute;
+            top: 54px;
+            right: 0;
+
+            width: 280px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.15);
+
+            border: 1px solid #eee;
+
+            padding: 15px;
+
+            z-index: 2000;
+        }
+
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 5px;
+        }
+
+
+        .dropdown-avatar {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            background: #fff0e8;
+            color: #ff5a1f;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+
+        .profile-info strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+
+        .profile-info small {
+            display: block;
+            color: #888;
+            font-size: 11px;
+        }
+
+
+        .dropdown-line {
+            height: 1px;
+            background: #eee;
+            margin: 13px 0;
+        }
+
+
+        .profile-dropdown a {
+            display: block;
+
+            padding: 11px 10px;
+
+            color: #333;
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 3px;
+        }
+
+
+        .profile-dropdown a:hover {
+            background: #fff4ee;
+            color: #ff5a1f;
+        }
+
+
+        .logout-btn {
+            width: 100%;
+
+            border: none;
+
+            background: #fff1f1;
+            color: #d33;
+
+            padding: 11px;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+
+        .logout-btn:hover {
+            background: #ffe1e1;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: calc(100vh - 72px);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 70px 8%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff7ef 0%,
+                    #fff 55%,
+                    #fff1e8 100%
+                );
+
+            gap: 50px;
+        }
+
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+
+        .small-title {
+            display: inline-block;
+
+            background: #fff0e7;
+            color: #ff5a1f;
+
+            padding: 8px 16px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 {
+            font-size: 58px;
+            line-height: 1.08;
+
+            margin-bottom: 22px;
+
+            color: #222;
+        }
+
+
+        .hero h1 span {
+            color: #ff5a1f;
+            display: block;
+        }
+
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+
+            color: #666;
+
+            margin-bottom: 32px;
+
+            max-width: 540px;
+        }
+
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+
+        .primary-btn {
+            border: none;
+
+            background: #ff5a1f;
+            color: white;
+
+            padding: 15px 28px;
+
+            border-radius: 30px;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .primary-btn:hover {
+            background: #e84d16;
+            transform: translateY(-2px);
+        }
+
+
+        .secondary-btn {
+            border: 2px solid #ff5a1f;
+
+            background: white;
+            color: #ff5a1f;
+
+            padding: 13px 26px;
+
+            border-radius: 30px;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .secondary-btn:hover {
+            background: #fff0e7;
+        }
+
+
+        /* =====================================================
+           HERO VISUAL
+        ===================================================== */
+
+        .hero-visual {
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6b2c,
+                    #ff9a62
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow:
+                0 25px 60px rgba(255,90,31,0.25);
+
+            position: relative;
+        }
+
+
+        .food-emoji {
+            font-size: 175px;
+
+            animation:
+                floatFood 3s ease-in-out infinite;
+        }
+
+
+        @keyframes floatFood {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+        }
+
+
+        .floating-card {
+            position: absolute;
+
+            background: white;
+
+            padding: 15px 20px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.12);
+
+            font-weight: 700;
+        }
+
+
+        .card-one {
+            top: 40px;
+            left: -30px;
+        }
+
+
+        .card-two {
+            bottom: 45px;
+            right: -35px;
+        }
+
+
+        /* =====================================================
+           FEATURES
+        ===================================================== */
+
+        .features {
+            padding: 70px 8%;
+            background: white;
+        }
+
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+
+        .section-title p {
+            color: #777;
+            font-size: 16px;
+        }
+
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        .feature-card {
+            padding: 30px;
+
+            background: #fffaf5;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            transition: 0.3s;
+
+            border: 1px solid #f5eee8;
+        }
+
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.08);
+        }
+
+
+        .feature-icon {
+            font-size: 42px;
+            margin-bottom: 18px;
+        }
+
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+
+        .feature-card p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           CTA
+        ===================================================== */
+
+        .cta {
+            margin: 40px 8% 80px;
+
+            padding: 55px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff5a1f,
+                    #ff7d42
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+
+        .cta h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+
+        .cta p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+
+        .cta button {
+            background: white;
+            color: #ff5a1f;
+
+            border: none;
+
+            padding: 14px 25px;
+
+            border-radius: 25px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #181818;
+
+            color: white;
+
+            padding: 45px 8% 25px;
+        }
+
+
+        .footer-content {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr;
+
+            gap: 50px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .footer-logo {
+            font-size: 25px;
+
+            color: #ff6b2c;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+
+        .footer-about p {
+            color: #aaa;
+
+            line-height: 1.7;
+
+            max-width: 420px;
+        }
+
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+
+        footer a {
+            display: block;
+
+            color: #aaa;
+
+            text-decoration: none;
+
+            margin-bottom: 10px;
+        }
+
+
+        footer a:hover {
+            color: #ff6b2c;
+        }
+
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+
+            padding-top: 20px;
+
+            text-align: center;
+
+            color: #888;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           REGISTER MODAL
+        ===================================================== */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,0.55);
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 3000;
+        }
+
+
+        .modal-box {
+            width: 90%;
+
+            max-width: 420px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            position: relative;
+        }
+
+
+        .modal-box h2 {
+            margin-bottom: 20px;
+        }
+
+
+        .close-btn {
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            color: #777;
+        }
+
+
+        .modal-box input {
+            width: 100%;
+
+            padding: 13px;
+
+            margin-bottom: 13px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            outline: none;
+        }
+
+
+        .modal-box input:focus {
+            border-color: #ff5a1f;
+        }
+
+
+        .modal-box button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            background: #ff5a1f;
+
+            color: white;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width: 900px) {
+
+            .hero {
+                flex-direction: column;
+
+                text-align: center;
+
+                padding-top: 50px;
+            }
+
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+
+            .hero-visual {
+                width: 330px;
+                height: 330px;
+            }
+
+
+            .food-emoji {
+                font-size: 130px;
+            }
+
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .cta {
+                flex-direction: column;
+                text-align: center;
+            }
+
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+
+            .nav-links {
+                gap: 8px;
+            }
+
+
+            .nav-links > a:not(.cart-btn) {
+                display: none;
+            }
+
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+
+            .features {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+
+            .cta {
+                margin-left: 5%;
+                margin-right: 5%;
+
+                padding: 35px 25px;
+            }
+
+
+            .card-one {
+                left: -10px;
+            }
+
+
+            .card-two {
+                right: -10px;
+            }
+
+
+            .profile-dropdown {
+                right: -10px;
+                width: 250px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    <nav>
+
+
+        <a
+            href="index.html"
+            class="logo">
+
+            Food<span>Express</span> 🍴
+
+        </a>
+
+
+        <div class="nav-links">
+
+
+            <a href="index.html">
+                Home
+            </a>
+
+
+            <a href="restaurants.html">
+                Restaurants
+            </a>
+
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+
+            <a
+                href="cart.html"
+                class="cart-btn">
+
+                🛒 Cart
+                <span id="cartCount">0</span>
+
+            </a>
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <div class="profile-menu">
+
+
+                <button
+                    class="profile-avatar"
+                    id="profileAvatar"
+                    onclick="toggleProfileMenu()">
+
+                    👤
+
+                </button>
+
+
+                <div
+                    class="profile-dropdown"
+                    id="profileDropdown">
+
+
+                    <div class="profile-info">
+
+
+                        <div
+                            class="dropdown-avatar"
+                            id="dropdownAvatar">
+
+                            👤
+
+                        </div>
+
+
+                        <div>
+
+                            <strong id="profileName">
+                                Guest User
+                            </strong>
+
+                            <small id="profileEmail">
+                                Login / Register
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="dropdown-line"></div>
+
+
+                    <a href="profile.html">
+                        👤 My Profile
+                    </a>
+
+
+                    <a href="orders.html">
+                        📦 My Orders
+                    </a>
+
+
+                    <button
+                        class="logout-btn"
+                        onclick="logoutUser()">
+
+                        🚪 Logout
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </nav>
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="hero">
+
+
+        <div class="hero-content">
+
+
+            <div class="small-title">
+
+                🚀 Fast & Fresh Food Delivery
+
+            </div>
+
+
+            <h1>
+
+                Delicious Food,
+
+                <span>
+                    Delivered Fast!
+                </span>
+
+                🍕
+
+            </h1>
+
+
+            <p>
+
+                Discover your favourite restaurants,
+                order delicious meals and get them
+                delivered straight to your doorstep.
+                FoodExpress makes food ordering simple,
+                quick and convenient.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <button
+                    class="primary-btn"
+                    onclick="
+                        window.location.href='restaurants.html'
+                    ">
+
+                    Explore Restaurants →
+
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    onclick="openRegister()">
+
+                    Create Account
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="hero-visual">
+
+
+            <div class="food-emoji">
+
+                🍔
+
+            </div>
+
+
+            <div class="floating-card card-one">
+
+                ⭐ 4.8 Rating
+
+            </div>
+
+
+            <div class="floating-card card-two">
+
+                🚴 Fast Delivery
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURES
+    ===================================================== -->
+
+    <section class="features">
+
+
+        <div class="section-title">
+
+
+            <h2>
+                Why Choose FoodExpress?
+            </h2>
+
+
+            <p>
+                Everything you need for a better
+                food ordering experience.
+            </p>
+
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+                    🍔
+                </div>
+
+
+                <h3>
+                    Wide Food Selection
+                </h3>
+
+
+                <p>
+
+                    Explore delicious food from popular
+                    restaurants and choose from a variety
+                    of cuisines.
+
+                </p>
+
+
+            </div>
+
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+                    🚴
+                </div>
+
+
+                <h3>
+                    Fast Delivery
+                </h3>
+
+
+                <p>
+
+                    Get your favourite meals delivered
+                    quickly and conveniently to your
+                    doorstep.
+
+                </p>
+
+
+            </div>
+
+
+            <div class="feature-card">
+
+
+                <div class="feature-icon">
+                    🔒
+                </div>
+
+
+                <h3>
+                    Secure Ordering
+                </h3>
+
+
+                <p>
+
+                    Your order information is handled
+                    securely for a smooth and reliable
+                    experience.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+    ===================================================== -->
+
+    <section class="cta">
+
+
+        <div>
+
+
+            <h2>
+                Hungry? Let's fix that! 😋
+            </h2>
+
+
+            <p>
+
+                Find your favourite restaurant
+                and order your favourite food today.
+
+            </p>
+
+
+        </div>
+
+
+        <button
+            onclick="
+                window.location.href='restaurants.html'
+            ">
+
+            Order Now →
+
+        </button>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+
+        <div class="footer-content">
+
+
+            <div class="footer-about">
+
+
+                <div class="footer-logo">
+
+                    FoodExpress 🍴
+
+                </div>
+
+
+                <p>
+
+                    Your simple and reliable food delivery
+                    platform. Discover restaurants, order
+                    delicious meals and enjoy fast delivery.
+
+                </p>
+
+
+            </div>
+
+
+            <div>
+
+
+                <h3>
+                    Quick Links
+                </h3>
+
+
+                <a href="index.html">
+                    Home
+                </a>
+
+
+                <a href="restaurants.html">
+                    Restaurants
+                </a>
+
+
+                <a href="orders.html">
+                    My Orders
+                </a>
+
+
+                <a href="cart.html">
+                    Cart
+                </a>
+
+
+                <a href="profile.html">
+                    My Profile
+                </a>
+
+
+            </div>
+
+
+            <div>
+
+
+                <h3>
+                    Support
+                </h3>
+
+
+                <a href="#">
+                    Help Center
+                </a>
+
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+
+                <a href="#">
+                    Terms & Conditions
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © 2026 FoodExpress.
+            All Rights Reserved.
+
+        </div>
+
+
+    </footer>
+
+
+    <!-- =====================================================
+         REGISTER MODAL
+    ===================================================== -->
+
+    <div
+        class="modal"
+        id="registerModal">
+
+
+        <div class="modal-box">
+
+
+            <span
+                class="close-btn"
+                onclick="closeRegister()">
+
+                ×
+
+            </span>
+
+
+            <h2>
+                Create Your Account
+            </h2>
+
+
+            <input
+                type="text"
+                id="userName"
+                placeholder="Full Name">
+
+
+            <input
+                type="email"
+                id="userEmail"
+                placeholder="Email Address">
+
+
+            <input
+                type="tel"
+                id="userPhone"
+                maxlength="10"
+                placeholder="Phone Number">
+
+
+            <button onclick="registerUser()">
+
+                Continue to Profile
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           CART COUNT
+        ===================================================== */
+
+        function updateCartCount() {
+
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "foodExpressCart"
+                    )
+                ) || [];
+
+
+            let count = 0;
+
+
+            cart.forEach(item => {
+
+                count +=
+                    Number(item.quantity) || 1;
+
+            });
+
+
+            const cartCount =
+                document.getElementById(
+                    "cartCount"
+                );
+
+
+            if (cartCount) {
+
+                cartCount.textContent =
+                    count;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PROFILE INITIALS
+        ===================================================== */
+
+        function getInitials(name) {
+
+
+            if (!name) {
+
+                return "👤";
+
+            }
+
+
+            const words =
+                name
+                    .trim()
+                    .split(/\s+/);
+
+
+            if (words.length >= 2) {
+
+                return (
+
+                    words[0][0] +
+
+                    words[
+                        words.length - 1
+                    ][0]
+
+                ).toUpperCase();
+
+            }
+
+
+            return words[0]
+                .substring(0, 2)
+                .toUpperCase();
+
+        }
+
+
+        /* =====================================================
+           LOAD PROFILE
+        ===================================================== */
+
+        function loadProfileNavbar() {
+
+
+            const user =
+                JSON.parse(
+                    localStorage.getItem(
+                        "foodExpressUser"
+                    )
+                );
+
+
+            const avatar =
+                document.getElementById(
+                    "profileAvatar"
+                );
+
+
+            const dropdownAvatar =
+                document.getElementById(
+                    "dropdownAvatar"
+                );
+
+
+            const profileName =
+                document.getElementById(
+                    "profileName"
+                );
+
+
+            const profileEmail =
+                document.getElementById(
+                    "profileEmail"
+                );
+
+
+            if (!user) {
+
+
+                avatar.textContent =
+                    "👤";
+
+
+                dropdownAvatar.textContent =
+                    "👤";
+
+
+                profileName.textContent =
+                    "Guest User";
+
+
+                profileEmail.textContent =
+                    "Login / Register";
+
+
+                return;
+
+            }
+
+
+            const initials =
+                getInitials(
+                    user.name
+                );
+
+
+            avatar.textContent =
+                initials;
+
+
+            dropdownAvatar.textContent =
+                initials;
+
+
+            profileName.textContent =
+                user.name;
+
+
+            profileEmail.textContent =
+                user.email || "";
+
+        }
+
+
+        /* =====================================================
+           PROFILE DROPDOWN
+        ===================================================== */
+
+        function toggleProfileMenu() {
+
+
+            const dropdown =
+                document.getElementById(
+                    "profileDropdown"
+                );
+
+
+            dropdown.classList.toggle(
+                "show"
+            );
+
+        }
+
+
+        /* =====================================================
+           CLOSE DROPDOWN OUTSIDE
+        ===================================================== */
+
+        document.addEventListener(
+            "click",
+            function(event) {
+
+
+                const menu =
+                    document.querySelector(
+                        ".profile-menu"
+                    );
+
+
+                const dropdown =
+                    document.getElementById(
+                        "profileDropdown"
+                    );
+
+
+                if (
+                    menu &&
+                    !menu.contains(
+                        event.target
+                    )
+                ) {
+
+                    dropdown.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
+
+        function logoutUser() {
+
+
+            const confirmLogout =
+                confirm(
+                    "Are you sure you want to logout?"
+                );
+
+
+            if (!confirmLogout) {
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                "foodExpressUser"
+            );
+
+
+            alert(
+                "You have been logged out successfully."
+            );
+
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        /* =====================================================
+           REGISTER
+        ===================================================== */
+
+        function openRegister() {
+
+
+            const user =
+                JSON.parse(
+                    localStorage.getItem(
+                        "foodExpressUser"
+                    )
+                );
+
+
+            /*
+                If profile already exists,
+                directly open profile.
+            */
+
+            if (user) {
+
+                window.location.href =
+                    "profile.html";
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "registerModal"
+            ).style.display =
+                "flex";
+
+        }
+
+
+        function closeRegister() {
+
+
+            document.getElementById(
+                "registerModal"
+            ).style.display =
+                "none";
+
+        }
+
+
+        /* =====================================================
+           REGISTER USER
+        ===================================================== */
+
+        function registerUser() {
+
+
+            const name =
+                document.getElementById(
+                    "userName"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "userEmail"
+                ).value.trim();
+
+
+            const phone =
+                document.getElementById(
+                    "userPhone"
+                ).value.trim();
+
+
+            if (
+                !name ||
+                !email ||
+                !phone
+            ) {
+
+
+                alert(
+                    "Please fill all the details."
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+                Save basic information.
+
+                Address will be completed
+                on profile page.
+            */
+
+            const user = {
+
+                name: name,
+
+                email: email,
+
+                phone: phone,
+
+                address: "",
+
+                city: "",
+
+                pincode: ""
+
+            };
+
+
+            localStorage.setItem(
+                "foodExpressUser",
+                JSON.stringify(user)
+            );
+
+
+            closeRegister();
+
+
+            /*
+                Complete profile details.
+            */
+
+            window.location.href =
+                "profile.html";
+
+        }
+
+
+        /* =====================================================
+           CLOSE MODAL WHEN CLICKING OUTSIDE
+        ===================================================== */
+
+        window.addEventListener(
+            "click",
+            function(event) {
+
+
+                const modal =
+                    document.getElementById(
+                        "registerModal"
+                    );
+
+
+                if (
+                    event.target === modal
+                ) {
+
+                    closeRegister();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        loadProfileNavbar();
+
+        updateCartCount();
+
+
+    </script>
+
+
+</body>
+
+</html>
+```

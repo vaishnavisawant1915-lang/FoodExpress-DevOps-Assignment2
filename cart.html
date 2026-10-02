@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cart | FoodExpress</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f7f8fa;
+    color: #222;
+}
+
+/* NAVBAR */
+
+.navbar {
+    height: 72px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: #e23744;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: #e23744;
+}
+
+.cart-btn {
+    background: #e23744;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 22px;
+}
+
+/* PROFILE */
+
+.profile-area {
+    position: relative;
+}
+
+.profile-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e23744;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 52px;
+    width: 250px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    padding: 18px;
+    z-index: 2000;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+.profile-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+}
+
+.profile-name {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.profile-email {
+    color: #777;
+    font-size: 13px;
+    margin-top: 4px;
+    word-break: break-word;
+}
+
+.profile-dropdown a,
+.logout-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 8px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-dropdown a:hover,
+.logout-btn:hover {
+    background: #f7f7f7;
+}
+
+.logout-btn {
+    color: #e23744;
+    font-weight: 600;
+}
+
+/* PAGE */
+
+.page-header {
+    padding: 45px 6%;
+    background: linear-gradient(135deg, #fff2f3, white);
+}
+
+.page-header h1 {
+    font-size: 38px;
+}
+
+.cart-container {
+    padding: 40px 6% 70px;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.cart-card {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.food-icon {
+    width: 75px;
+    height: 75px;
+    border-radius: 12px;
+    background: #fff2f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h3 {
+    margin-bottom: 5px;
+}
+
+.restaurant-name {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-weight: 700;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 6px;
+    background: #e23744;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-btn {
+    border: none;
+    background: none;
+    color: #e23744;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.summary {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    height: fit-content;
+    position: sticky;
+    top: 95px;
+}
+
+.summary h2 {
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 13px 0;
+}
+
+.total {
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.checkout-btn {
+    width: 100%;
+    margin-top: 20px;
+    border: none;
+    background: #e23744;
+    color: white;
+    padding: 14px;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.empty {
+    background: white;
+    padding: 70px 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.empty h2 {
+    margin-bottom: 10px;
+}
+
+.empty a {
+    display: inline-block;
+    margin-top: 20px;
+    background: #e23744;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+footer {
+    background: #181818;
+    color: white;
+    text-align: center;
+    padding: 28px;
+}
+
+@media(max-width: 850px) {
+
+    .cart-container {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a:not(.cart-btn) {
+        display: none;
+    }
+
+    .cart-card {
+        flex-wrap: wrap;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<a href="index.html" class="logo">FoodExpress</a>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+<a href="restaurants.html">Restaurants</a>
+<a href="orders.html">Orders</a>
+
+<a href="cart.html" class="cart-btn">
+Cart 🛒 <span id="cartCount">0</span>
+</a>
+
+<div class="profile-area">
+
+<div
+class="profile-avatar"
+id="profileAvatar"
+onclick="toggleProfileMenu()">
+👤
+</div>
+
+<div class="profile-dropdown" id="profileDropdown">
+
+<div class="profile-header">
+
+<div class="profile-name" id="profileName">
+Guest User
+</div>
+
+<div class="profile-email" id="profileEmail">
+Login / Register
+</div>
+
+</div>
+
+<a href="profile.html">👤 My Profile</a>
+<a href="orders.html">📦 My Orders</a>
+
+<button class="logout-btn" onclick="logoutUser()">
+🚪 Logout
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</nav>
+
+
+<section class="page-header">
+
+<h1>Your Cart 🛒</h1>
+
+</section>
+
+
+<div class="cart-container">
+
+<div id="cartItems" class="cart-items"></div>
+
+<div class="summary">
+
+<h2>Order Summary</h2>
+
+<div class="summary-row">
+<span>Subtotal</span>
+<span id="subtotal">₹0</span>
+</div>
+
+<div class="summary-row">
+<span>Delivery Fee</span>
+<span id="deliveryFee">₹0</span>
+</div>
+
+<div class="summary-row">
+<span>GST (5%)</span>
+<span id="gst">₹0</span>
+</div>
+
+<div class="summary-row total">
+<span>Total</span>
+<span id="grandTotal">₹0</span>
+</div>
+
+<button
+class="checkout-btn"
+onclick="goToCheckout()">
+Proceed to Checkout
+</button>
+
+</div>
+
+</div>
+
+
+<footer>
+<p>© 2026 FoodExpress. Delicious food, delivered fast.</p>
+</footer>
+
+
+<script>
+
+let cart =
+JSON.parse(localStorage.getItem("foodExpressCart")) || [];
+
+
+function renderCart() {
+
+const container =
+document.getElementById("cartItems");
+
+if (cart.length === 0) {
+
+container.innerHTML = `
+
+<div class="empty">
+
+<h2>Your cart is empty 🛒</h2>
+
+<p>Add some delicious food to continue.</p>
+
+<a href="restaurants.html">
+Explore Restaurants
+</a>
+
+</div>
+
+`;
+
+updateSummary();
+return;
+
+}
+
+
+container.innerHTML = cart.map((item, index) => `
+
+<div class="cart-card">
+
+<div class="food-icon">
+${item.icon || "🍽️"}
+</div>
+
+<div class="item-info">
+
+<h3>${escapeHTML(item.name)}</h3>
+
+<div class="restaurant-name">
+${escapeHTML(item.restaurantName || "FoodExpress")}
+</div>
+
+<div class="price">
+₹${item.price}
+</div>
+
+</div>
+
+<div class="quantity-controls">
+
+<button onclick="changeQuantity(${index}, -1)">
+−
+</button>
+
+<span>${item.quantity || 1}</span>
+
+<button onclick="changeQuantity(${index}, 1)">
++
+</button>
+
+</div>
+
+<button
+class="remove-btn"
+onclick="removeItem(${index})">
+Remove
+</button>
+
+</div>
+
+`).join("");
+
+updateSummary();
+
+}
+
+
+function changeQuantity(index, change) {
+
+cart[index].quantity =
+(cart[index].quantity || 1) + change;
+
+if (cart[index].quantity <= 0) {
+cart.splice(index, 1);
+}
+
+saveCart();
+
+}
+
+
+function removeItem(index) {
+
+cart.splice(index, 1);
+
+saveCart();
+
+}
+
+
+function saveCart() {
+
+localStorage.setItem(
+"foodExpressCart",
+JSON.stringify(cart)
+);
+
+renderCart();
+updateCartCount();
+
+}
+
+
+function updateSummary() {
+
+let subtotal = 0;
+
+cart.forEach(item => {
+
+subtotal +=
+Number(item.price) *
+(item.quantity || 1);
+
+});
+
+
+const delivery =
+subtotal === 0
+? 0
+: subtotal < 299
+? 40
+: 0;
+
+
+const gst =
+Math.round(subtotal * 0.05);
+
+
+const total =
+subtotal + delivery + gst;
+
+
+document.getElementById("subtotal").textContent =
+"₹" + subtotal;
+
+document.getElementById("deliveryFee").textContent =
+"₹" + delivery;
+
+document.getElementById("gst").textContent =
+"₹" + gst;
+
+document.getElementById("grandTotal").textContent =
+"₹" + total;
+
+}
+
+
+function updateCartCount() {
+
+let count = 0;
+
+cart.forEach(item => {
+count += item.quantity || 1;
+});
+
+document.getElementById("cartCount").textContent =
+count;
+
+}
+
+
+function goToCheckout() {
+
+if (cart.length === 0) {
+
+alert("Your cart is empty.");
+
+return;
+
+}
+
+window.location.href = "checkout.html";
+
+}
+
+
+function escapeHTML(value) {
+
+return String(value)
+.replace(/&/g, "&amp;")
+.replace(/</g, "&lt;")
+.replace(/>/g, "&gt;")
+.replace(/"/g, "&quot;")
+.replace(/'/g, "&#039;");
+
+}
+
+
+/* PROFILE */
+
+function getInitials(name) {
+
+if (!name) return "👤";
+
+const words =
+name.trim().split(/\s+/);
+
+if (words.length === 1) {
+return words[0].substring(0, 2).toUpperCase();
+}
+
+return (
+words[0][0] +
+words[words.length - 1][0]
+).toUpperCase();
+
+}
+
+
+function loadProfileNavbar() {
+
+const userData =
+localStorage.getItem("foodExpressUser");
+
+const avatar =
+document.getElementById("profileAvatar");
+
+const name =
+document.getElementById("profileName");
+
+const email =
+document.getElementById("profileEmail");
+
+if (userData) {
+
+const user =
+JSON.parse(userData);
+
+avatar.textContent =
+getInitials(user.name);
+
+name.textContent =
+user.name || "User";
+
+email.textContent =
+user.email || "";
+
+} else {
+
+avatar.textContent = "👤";
+name.textContent = "Guest User";
+email.textContent = "Login / Register";
+
+}
+
+}
+
+
+function toggleProfileMenu() {
+
+document
+.getElementById("profileDropdown")
+.classList.toggle("show");
+
+}
+
+
+document.addEventListener("click", function(event) {
+
+const area =
+document.querySelector(".profile-area");
+
+if (!area.contains(event.target)) {
+
+document
+.getElementById("profileDropdown")
+.classList.remove("show");
+
+}
+
+});
+
+
+function logoutUser() {
+
+localStorage.removeItem("foodExpressUser");
+
+alert("You have been logged out.");
+
+window.location.href = "index.html";
+
+}
+
+
+renderCart();
+loadProfileNavbar();
+updateCartCount();
+
+</script>
+
+</body>
+</html>
