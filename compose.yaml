@@ -1,0 +1,9 @@
+services:
+  foodexpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: foodexpress-compose
+    ports:
+      - "8080:80"
+    restart: unless-stopped
